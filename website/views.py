@@ -24,7 +24,7 @@ def pull_message():
 def home():
 
     if not request.args.get('post'):
-        post = ""
+        post = Post()
     else:
         post = request.args['post']
 
@@ -34,8 +34,8 @@ def home():
         db.session.commit()
         user_id = new_user.id
         print(f'userid={user_id}')
-        print(url_for('views.setcookie', user_id=user_id))
-        return redirect(url_for('cookies.setcookie',user_id=user_id))
+        # print(url_for('views.set_cookie', user_id=user_id))
+        return redirect(url_for('cookies.setcookie',user_id=user_id,post=post))
 
     else:
         user_id = request.cookies.get('user_id')
