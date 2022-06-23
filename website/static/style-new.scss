@@ -1,0 +1,88 @@
+$background-image-source: url(bg-img.jpeg);
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Crimson+Text&family=Indie+Flower&family=Lato:ital,wght@1,300&display=swap');
+
+body{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
+        , $background-image-source;
+    background-size: 100% auto;
+    margin:0 0;
+    margin-top: -30px;
+    border: none;
+    text-decoration: none!important;
+    color: white;
+}
+
+.container {
+    display: flex;
+    color: white
+}
+
+.header{
+    width: 100%;
+    margin:0px;
+    padding: 0px;
+    background-color: rgba(0,0,0,0.4);
+    background-size: cover;
+    justify-content: center;
+}
+
+.title-text{
+    text-align: center;
+    color:rgba(211,211,211,0.75);
+    flex-direction: column;
+    gap: 0.1em;
+    padding: 2em 2em 0.2em;
+    margin: 0;
+    .title{
+        font-family: "Crimson Text";
+        
+    }
+}
+
+
+
+.sub-title{
+    font-family: 'Caveat', cursive;
+    font-weight:lighter;
+    @at-root h1#{&}{
+        font-size: 6em;
+        margin: 0.1em;
+    }
+    @at-root p#{&}{
+        font-size: 1.6em;
+    }
+}
+
+.body{
+    flex-direction: column;
+    align-items: center;
+    .content{
+        gap: 0.75em;
+        margin: 0 4em;
+        padding: 0.3em;
+        .nav-pane{
+            ul{
+            list-style-type: none;
+                li{
+                    padding: 2em 0;
+                    font-size:1.5em;
+                    font-family: 'Indie Flower', cursive;
+                    color: white;
+                    a{
+                        color: white;
+                        text-decoration: none;
+                        &:hover{
+                            font-weight: bolder;
+                            font-style: italic;
+                            font-size: 1.7em
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+
+}

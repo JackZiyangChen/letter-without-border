@@ -2,27 +2,43 @@
     {% block page_name %}Home{% endblock %}
     {% block content %}
     <center>
-    <main class="main">
-        <div class="container">
-            <a href="/pull"><button class="btn btn-green btn-large" id="pullBtn">Pull a Letter</button></a>
-          <button class="btn btn-green btn-large" id="letterBtn">New Letter</button>
+      <main class="body container">
+        <div class="content">
+          <h1 class="sub-title">What's on your mind today?</h1>
+          <div class="nav-pane">
+            <ul>
+              <li><a href="/somewhere">I want to read a letter</a></li>
+              <li><a href="/somewhere">I want to write something</a></li>
+              <li><a href="/somewhere">I want to continue a conversation</a></li>
+            </ul>
+          </div>
         </div>
-        <br>
-      <div class="letters-grid container" id="letterGrid">    <!-- grid for displaying sent/received letters-->
-        <br>
-        <form id="letter-survey" method="post">
-          <label id="title-label">Subject</label>
-          <input type="text" name="title" id="title"  placeholder="Post Title" style="width: 450px"><br>
-          <label id="content-label">Content</label>
-          <input type="text" name="content" id="content" placeholder="What's on your mind?" style="width: 450px;height:100px" required><br>
-          <button type="submit" id="submitLetter">Send Letter</button>
-       </form>
-      </div>
-        <div class="container message-grid" id="messageGrid" >
-            <h3>post content</h3>
-            {{post.content}}
+      </main>
+
+
+
+      <!-- <main class="main">
+          <div class="container">
+              <a href="/pull"><button class="btn btn-green btn-large" id="pullBtn">Pull a Letter</button></a>
+            <button class="btn btn-green btn-large" id="letterBtn">New Letter</button>
+          </div>
+          <br>
+        <div class="letters-grid container" id="letterGrid">    
+          <!-- grid for displaying sent/received letters-->
+          <!-- <br>
+          <form id="letter-survey" method="post">
+            <label id="title-label">Subject</label>
+            <input type="text" name="title" id="title"  placeholder="Post Title" style="width: 450px"><br>
+            <label id="content-label">Content</label>
+            <input type="text" name="content" id="content" placeholder="What's on your mind?" style="width: 450px;height:100px" required><br>
+            <button type="submit" id="submitLetter">Send Letter</button>
+        </form>
         </div>
-      <script src={{url_for('static', filename="script.js")}} defer></script>
-    </main>
+          <div class="container message-grid" id="messageGrid" >
+              <h3>post content</h3>
+              {{post.content}}
+          </div>
+        <script src={{url_for('static', filename="script.js")}} defer></script>
+      </main> -->
     </center>
     {% endblock %}
