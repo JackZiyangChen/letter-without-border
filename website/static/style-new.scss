@@ -3,24 +3,35 @@ $background-image-source: url(bg-img.jpeg);
 @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Crimson+Text&family=Indie+Flower&family=Lato:ital,wght@1,300&display=swap');
 
 body{
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
-        , $background-image-source;
-    background-size: 100% auto;
-    margin:0 0;
-    margin-top: -30px;
+    
+    padding: 0;
     border: none;
     text-decoration: none!important;
     color: white;
+    margin: 0px 0px;
+    min-height: 100%;
+}
+
+html{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
+        , $background-image-source center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100%;
+    margin: 0px;
+    background-attachment: fixed;
 }
 
 .container {
     display: flex;
-    color: white
+    // justify-content: space-between;
+    flex-direction: column;
+    color: white;
 }
 
 .header{
     width: 100%;
-    margin:0px;
+    margin-top: -15px;
     padding: 0px;
     background-color: rgba(0,0,0,0.4);
     background-size: cover;
@@ -45,22 +56,34 @@ body{
 .sub-title{
     font-family: 'Caveat', cursive;
     font-weight:lighter;
+    margin: 0;
     @at-root h1#{&}{
         font-size: 6em;
         margin: 0.1em;
     }
     @at-root p#{&}{
         font-size: 1.6em;
+        margin-bottom: 0.5em;
+    }
+
+    @at-root h3#{&}{
+        font-size: 2em;
+        margin: 0.1em;
     }
 }
 
 .body{
-    flex-direction: column;
-    align-items: center;
+    min-height:100%;
+    // overflow:hidden;
+    // display:block;
+    // flex-direction:column;
+    // justify-content: space-between;
+    // text-align: center;
     .content{
         gap: 0.75em;
-        margin: 0 4em;
+        margin: 0 1em;
         padding: 0.3em;
+        text-align: center;
         .nav-pane{
             ul{
             list-style-type: none;
@@ -75,7 +98,7 @@ body{
                         &:hover{
                             font-weight: bolder;
                             font-style: italic;
-                            font-size: 1.7em
+                            font-size: 1.7em;
                         }
                     }
                 }
@@ -83,6 +106,230 @@ body{
         }
         
     }
+}
+
+.textbox{
+    //width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin:2em;
+    padding: 0 1.2em;
+    transition: opacity 1s ease-in-out;
+    // visibility: hidden;
+    opacity: 0;
+
+    .text-input{
+        background-color: rgba($color: #000000, $alpha: 0.2);
+        color: white;
+        font-family: "Caveat", cursive;
+        border-radius: 20px;
+        font-size: large;
+        padding: 0.5em 0.7em;
+        box-sizing: border-box;
+        height: 100%;
+    }
+}
+
+#response-box {
+    width: 50%;
+}
+
+.letter-display{
+    box-sizing: border-box;
+    padding: 0.1em;
+    margin: 1.5em auto;
+    border: 1px solid rgba($color: #ffffff , $alpha: 0.5);
+    width: auto;
+    padding: 0.5em 0.8em;
+    width: 40%;
+    border-radius: 20px;
+    background-color: rgba($color: #000000, $alpha: 0.25);
+    font-family: "indie flower", cursive;
     
+    .subject-line{
+        font-size: 2em;
+        font-weight: bold;
+        h1,h2,h3,h4,h5,h6,p{
+            margin: 0;
+            padding: 0.3em 0 ;
+        }
+    }
+    
+    .letter-content{
+        box-sizing: content-box;
+        background-color: rgba($color: #000000, $alpha: 0.4);
+        font-size : 1.6em;
+        border-radius: 12px;
+        height: 50vh;
+        overflow-y: scroll;
+        text-align: left;
+        padding: 0 0.6em;
+        margin: 0;
+        p{
+            margin: 0;
+            padding: 0.3em 0;
+            white-space: pre-line;
+        }
+    }
+}
+
+.caveats{
+    font-family: 'Indie Flower', cursive;
+    justify-content: flex-start;
+    margin: 0 5em 1em;
+    li{
+        text-align: left;
+        font: 1em;
+        color: white;
+        p{
+            margin: 0.3em
+        }
+    }
+}
+
+.button-pan{
+    display: flex;
+    justify-content: space-between;
+    font-family: "Caveat", cursive;
+    color: white;
+    padding: 0 2em 2em;
+    font-size: 2em;
+    a{
+        color: white;
+        text-decoration: none;
+        padding-right: 0.2em;
+        &:hover{
+            font-weight: bolder;
+            font-style: italic;
+        }
+    }
+    button {
+        padding:0.1em;
+        padding-right: 0.2em; 
+        margin:0;
+        border:0;
+        color: white;
+        background-color:transparent;
+        font-family: "Caveat", cursive;
+        font-size: 1em;
+        &:hover{
+            cursor: pointer;
+            font-weight: bolder;
+            font-style: italic;
+        }
+    }
+}
+
+.horizontal-box{
+    display: flex;
+    flex-direction: row;
+}
+
+
+hr{
+    width: 90%;
+    height: 1px;
+    color: white;
+    background-color: white;
+    border-width: 0.5px;
 
 }
+.lists-display{
+    display: block;
+    height: 70vh;
+}
+.letter-list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // flex-wrap: wrap;
+    height: 25%;
+    margin-top: auto;
+    margin: 0 5em;
+    padding: 2em 0.5em;
+    font-family: "Indie Flower", cursive;
+    overflow-y: scroll;
+    ul{
+        list-style: none;
+        padding: auto;
+    }
+    li{
+        padding: 0.2em 0em;
+    }
+    .wrap{
+        text-decoration: none;
+        color: white;
+        text-align: justify;
+        
+        &:hover{
+            font-style: italic;
+            cursor: pointer;
+            .letter-entry-display{
+                background-color: rgba($color: #000000, $alpha: 0.5);
+            }
+            .active{
+                font-style: normal;
+            }
+        }
+        .letter-entry-display{
+            padding: 0em 1em;
+            margin: 0px;
+            background-color: rgba($color: #000000, $alpha: 0.2);
+            border: white 0.5px solid;
+            border-radius: 6px;
+            
+            .letter-header-display{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: center;
+                .letter-date-time{
+                    font-family: "Caveat", cursive;
+                }
+                .letter-title{
+                    font-size: 1.1em;
+                    font-weight: bolder;
+                }
+            }
+            .letter-response-active{
+                display: flex;
+            }
+            .letter-response-hidden{
+                display: flex;
+            }
+            .letter-response-list {
+                flex-direction: column;
+                justify-content: left;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+                max-height: 0;
+                hr {
+                    width: 50%;
+                    height: 1px;
+                    max-height: 1px;
+                    color: grey;
+                    background-color: grey;
+                    border-width: 0px;
+                    margin-left: 2.6em;
+                }
+                li {
+                    padding: 0.5em 0em;
+                }
+                a{
+                    color: white;
+                    text-decoration: none;
+                    &:hover{
+                        font-weight: bolder;
+                        font-style: italic;
+                    }
+                }
+            }
+        }
+
+        .active{
+            background-color: rgba($color: #000000, $alpha: 0.35);
+        }
+    }
+}
+

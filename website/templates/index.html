@@ -7,9 +7,9 @@
           <h1 class="sub-title">What's on your mind today?</h1>
           <div class="nav-pane">
             <ul>
-              <li><a href="/somewhere">I want to read a letter</a></li>
-              <li><a href="/somewhere">I want to write something</a></li>
-              <li><a href="/somewhere">I want to continue a conversation</a></li>
+              <li><a href="/read">I want to read a letter</a></li>
+              <li><a href="/create">I want to write something</a></li>
+              <li><a href="/list">I want to continue a conversation</a></li>
             </ul>
           </div>
         </div>
@@ -36,9 +36,12 @@
         </div>
           <div class="container message-grid" id="messageGrid" >
               <h3>post content</h3>
-              {{post.content}}
+              lol
           </div>
         <script src={{url_for('static', filename="script.js")}} defer></script>
       </main> -->
     </center>
+    <script>
+      localStorage.clear();
+    </script>
     {% endblock %}

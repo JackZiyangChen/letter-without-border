@@ -1,25 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat&family=Crimson+Text&family=Indie+Flower&family=Lato:ital,wght@1,300&display=swap");
 body {
-  background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(bg-img.jpeg);
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(bg-img.jpeg);
-  background-size: 100% auto;
-  margin: 0 0;
-  margin-top: -30px;
+  padding: 0;
   border: none;
   text-decoration: none !important;
   color: white;
+  margin: 0px 0px;
+  min-height: 100%;
+}
+
+html {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(bg-img.jpeg) center center fixed;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(bg-img.jpeg) center center fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100%;
+  margin: 0px;
+  background-attachment: fixed;
 }
 
 .container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   color: white;
 }
 
 .header {
   width: 100%;
-  margin: 0px;
+  margin-top: -15px;
   padding: 0px;
   background-color: rgba(0, 0, 0, 0.4);
   background-size: cover;
@@ -47,6 +59,7 @@ body {
 .sub-title {
   font-family: 'Caveat', cursive;
   font-weight: lighter;
+  margin: 0;
 }
 
 h1.sub-title {
@@ -56,22 +69,23 @@ h1.sub-title {
 
 p.sub-title {
   font-size: 1.6em;
+  margin-bottom: 0.5em;
+}
+
+h3.sub-title {
+  font-size: 2em;
+  margin: 0.1em;
 }
 
 .body {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  min-height: 100%;
 }
 
 .body .content {
   gap: 0.75em;
-  margin: 0 4em;
+  margin: 0 1em;
   padding: 0.3em;
+  text-align: center;
 }
 
 .body .content .nav-pane ul {
@@ -94,5 +108,296 @@ p.sub-title {
   font-weight: bolder;
   font-style: italic;
   font-size: 1.7em;
+}
+
+.textbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 2em;
+  padding: 0 1.2em;
+  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+.textbox .text-input {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  font-family: "Caveat", cursive;
+  border-radius: 20px;
+  font-size: large;
+  padding: 0.5em 0.7em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 100%;
+}
+
+#response-box {
+  width: 50%;
+}
+
+.letter-display {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0.1em;
+  margin: 1.5em auto;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  width: auto;
+  padding: 0.5em 0.8em;
+  width: 40%;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.25);
+  font-family: "indie flower", cursive;
+}
+
+.letter-display .subject-line {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.letter-display .subject-line h1, .letter-display .subject-line h2, .letter-display .subject-line h3, .letter-display .subject-line h4, .letter-display .subject-line h5, .letter-display .subject-line h6, .letter-display .subject-line p {
+  margin: 0;
+  padding: 0.3em 0;
+}
+
+.letter-display .letter-content {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 1.6em;
+  border-radius: 12px;
+  height: 50vh;
+  overflow-y: scroll;
+  text-align: left;
+  padding: 0 0.6em;
+  margin: 0;
+}
+
+.letter-display .letter-content p {
+  margin: 0;
+  padding: 0.3em 0;
+  white-space: pre-line;
+}
+
+.caveats {
+  font-family: 'Indie Flower', cursive;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 0 5em 1em;
+}
+
+.caveats li {
+  text-align: left;
+  font: 1em;
+  color: white;
+}
+
+.caveats li p {
+  margin: 0.3em;
+}
+
+.button-pan {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-family: "Caveat", cursive;
+  color: white;
+  padding: 0 2em 2em;
+  font-size: 2em;
+}
+
+.button-pan a {
+  color: white;
+  text-decoration: none;
+  padding-right: 0.2em;
+}
+
+.button-pan a:hover {
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.button-pan button {
+  padding: 0.1em;
+  padding-right: 0.2em;
+  margin: 0;
+  border: 0;
+  color: white;
+  background-color: transparent;
+  font-family: "Caveat", cursive;
+  font-size: 1em;
+}
+
+.button-pan button:hover {
+  cursor: pointer;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.horizontal-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+hr {
+  width: 90%;
+  height: 1px;
+  color: white;
+  background-color: white;
+  border-width: 0.5px;
+}
+
+.lists-display {
+  display: block;
+  height: 70vh;
+}
+
+.letter-list-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 25%;
+  margin-top: auto;
+  margin: 0 5em;
+  padding: 2em 0.5em;
+  font-family: "Indie Flower", cursive;
+  overflow-y: scroll;
+}
+
+.letter-list-container ul {
+  list-style: none;
+  padding: auto;
+}
+
+.letter-list-container li {
+  padding: 0.2em 0em;
+}
+
+.letter-list-container .wrap {
+  text-decoration: none;
+  color: white;
+  text-align: justify;
+}
+
+.letter-list-container .wrap:hover {
+  font-style: italic;
+  cursor: pointer;
+}
+
+.letter-list-container .wrap:hover .letter-entry-display {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.letter-list-container .wrap:hover .active {
+  font-style: normal;
+}
+
+.letter-list-container .wrap .letter-entry-display {
+  padding: 0em 1em;
+  margin: 0px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: white 0.5px solid;
+  border-radius: 6px;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-header-display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-header-display .letter-date-time {
+  font-family: "Caveat", cursive;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-header-display .letter-title {
+  font-size: 1.1em;
+  font-weight: bolder;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-hidden {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-list {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  overflow: hidden;
+  -webkit-transition: max-height 0.2s ease-out;
+  transition: max-height 0.2s ease-out;
+  max-height: 0;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-list hr {
+  width: 50%;
+  height: 1px;
+  max-height: 1px;
+  color: grey;
+  background-color: grey;
+  border-width: 0px;
+  margin-left: 2.6em;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-list li {
+  padding: 0.5em 0em;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-list a {
+  color: white;
+  text-decoration: none;
+}
+
+.letter-list-container .wrap .letter-entry-display .letter-response-list a:hover {
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.letter-list-container .wrap .active {
+  background-color: rgba(0, 0, 0, 0.35);
 }
 /*# sourceMappingURL=style-new.css.map */
