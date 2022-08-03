@@ -51,6 +51,10 @@ html{
     }
 }
 
+#frontpage-heading, #frontpage-item-1, #frontpage-item-2, #frontpage-item-3{
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+}
 
 
 .sub-title{
@@ -114,10 +118,6 @@ html{
     flex-direction: column;
     justify-content: space-between;
     margin:2em;
-    padding: 0 1.2em;
-    transition: opacity 1s ease-in-out;
-    // visibility: hidden;
-    opacity: 0;
 
     .text-input{
         background-color: rgba($color: #000000, $alpha: 0.2);
@@ -131,6 +131,19 @@ html{
     }
 }
 
+#new-letter-box {
+    padding: 0 1.2em;
+    transition: opacity 0.7s ease-in-out;
+    // visibility: hidden;
+    opacity: 0;
+}
+
+#view-letter-box, #view-pan-control, #view-letter-subject, #view-letter-content {
+    transition: opacity 1s ease-in-out;
+    // visibility: hidden;
+    opacity: 0;
+}
+
 #response-box {
     width: 50%;
 }
@@ -138,18 +151,21 @@ html{
 .letter-display{
     box-sizing: border-box;
     padding: 0.1em;
-    margin: 1.5em auto;
+    margin: 0.5em auto;
     border: 1px solid rgba($color: #ffffff , $alpha: 0.5);
     width: auto;
     padding: 0.5em 0.8em;
     width: 40%;
+    height: 60vh;
     border-radius: 20px;
     background-color: rgba($color: #000000, $alpha: 0.25);
     font-family: "indie flower", cursive;
     
     .subject-line{
         font-size: 2em;
+        overflow: scroll;
         font-weight: bold;
+        white-space: nowrap;
         h1,h2,h3,h4,h5,h6,p{
             margin: 0;
             padding: 0.3em 0 ;
@@ -164,7 +180,7 @@ html{
         height: 50vh;
         overflow-y: scroll;
         text-align: left;
-        padding: 0 0.6em;
+        padding: 0.3em 1em;
         margin: 0;
         p{
             margin: 0;
@@ -188,12 +204,38 @@ html{
     }
 }
 
+.view-pan{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    width: 40%;
+    color: white;
+    font-size: 1.3em;
+    font-family: "Caveat", cursive;
+    margin: 0em auto;
+    button {
+        padding:0.1em;
+        padding-right: 0.2em; 
+        margin:0;
+        border:0;
+        color: white;
+        background-color:transparent;
+        font-family: "Caveat", cursive;
+        font-size: 1.3em;
+        &:hover{
+            cursor: pointer;
+            font-weight: bolder;
+            font-style: italic;
+        }
+    }
+}
+
 .button-pan{
     display: flex;
     justify-content: space-between;
     font-family: "Caveat", cursive;
     color: white;
-    padding: 0 2em 2em;
+    padding: 1em 2em 2em;
     font-size: 2em;
     a{
         color: white;

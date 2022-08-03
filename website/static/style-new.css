@@ -56,6 +56,12 @@ html {
   font-family: "Crimson Text";
 }
 
+#frontpage-heading, #frontpage-item-1, #frontpage-item-2, #frontpage-item-3 {
+  opacity: 0;
+  -webkit-transition: opacity 3s ease-in-out;
+  transition: opacity 3s ease-in-out;
+}
+
 .sub-title {
   font-family: 'Caveat', cursive;
   font-weight: lighter;
@@ -122,10 +128,6 @@ h3.sub-title {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin: 2em;
-  padding: 0 1.2em;
-  -webkit-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
-  opacity: 0;
 }
 
 .textbox .text-input {
@@ -140,6 +142,19 @@ h3.sub-title {
   height: 100%;
 }
 
+#new-letter-box {
+  padding: 0 1.2em;
+  -webkit-transition: opacity 0.7s ease-in-out;
+  transition: opacity 0.7s ease-in-out;
+  opacity: 0;
+}
+
+#view-letter-box, #view-pan-control, #view-letter-subject, #view-letter-content {
+  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
 #response-box {
   width: 50%;
 }
@@ -148,11 +163,12 @@ h3.sub-title {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 0.1em;
-  margin: 1.5em auto;
+  margin: 0.5em auto;
   border: 1px solid rgba(255, 255, 255, 0.5);
   width: auto;
   padding: 0.5em 0.8em;
   width: 40%;
+  height: 60vh;
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.25);
   font-family: "indie flower", cursive;
@@ -160,7 +176,9 @@ h3.sub-title {
 
 .letter-display .subject-line {
   font-size: 2em;
+  overflow: scroll;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .letter-display .subject-line h1, .letter-display .subject-line h2, .letter-display .subject-line h3, .letter-display .subject-line h4, .letter-display .subject-line h5, .letter-display .subject-line h6, .letter-display .subject-line p {
@@ -177,7 +195,7 @@ h3.sub-title {
   height: 50vh;
   overflow-y: scroll;
   text-align: left;
-  padding: 0 0.6em;
+  padding: 0.3em 1em;
   margin: 0;
 }
 
@@ -205,6 +223,41 @@ h3.sub-title {
   margin: 0.3em;
 }
 
+.view-pan {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 40%;
+  color: white;
+  font-size: 1.3em;
+  font-family: "Caveat", cursive;
+  margin: 0em auto;
+}
+
+.view-pan button {
+  padding: 0.1em;
+  padding-right: 0.2em;
+  margin: 0;
+  border: 0;
+  color: white;
+  background-color: transparent;
+  font-family: "Caveat", cursive;
+  font-size: 1.3em;
+}
+
+.view-pan button:hover {
+  cursor: pointer;
+  font-weight: bolder;
+  font-style: italic;
+}
+
 .button-pan {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -214,7 +267,7 @@ h3.sub-title {
           justify-content: space-between;
   font-family: "Caveat", cursive;
   color: white;
-  padding: 0 2em 2em;
+  padding: 1em 2em 2em;
   font-size: 2em;
 }
 

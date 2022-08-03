@@ -4,12 +4,12 @@
     <center>
       <main class="body container">
         <div class="content">
-          <h1 class="sub-title">What's on your mind today?</h1>
+          <h1 class="sub-title" id="frontpage-heading">What's on your mind today?</h1>
           <div class="nav-pane">
             <ul>
-              <li><a href="/read">I want to read a letter</a></li>
-              <li><a href="/create">I want to write something</a></li>
-              <li><a href="/list">I want to continue a conversation</a></li>
+              <li id="frontpage-item-1"><a href="/read">I want to read a letter</a></li>
+              <li id="frontpage-item-2"><a href="/create">I want to write something</a></li>
+              <li id="frontpage-item-3"><a href="/list">I want to continue a conversation</a></li>
             </ul>
           </div>
         </div>
@@ -41,7 +41,20 @@
         <script src={{url_for('static', filename="script.js")}} defer></script>
       </main> -->
     </center>
+    <script src="{{url_for('static',filename='load-animations.js')}}"></script>
     <script>
       localStorage.clear();
-    </script>
+
+      window.setTimeout(function(){
+        elementTransitionIn("frontpage-heading");
+      }, 200);
+
+      window.setTimeout(function(){
+        elementTransitionIn("frontpage-item-1");
+        elementTransitionIn("frontpage-item-2");
+        elementTransitionIn("frontpage-item-3");
+      }, 800);
+      
+      </script>
+    
     {% endblock %}

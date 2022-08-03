@@ -6,7 +6,7 @@ from .flaskDB import Post, User, Initial_Post, Responding_Post
 from . import db, cache
 from sqlalchemy.sql import and_
 from random import randint
-from .response import get_all_replies_by_post, get_letters_chain, get_letters_chain, pull_posts_from_database, push_response, get_post_by_id, get_all_posts_by_user, reply_chain_subsequent
+from .response import create_new_post, get_all_replies_by_post, get_letters_chain, get_letters_chain, pull_posts_from_database, push_response, get_post_by_id, get_all_posts_by_user, reply_chain_subsequent
 import json
 import datetime
 
@@ -19,6 +19,7 @@ views = Blueprint('views', __name__)
 def pull_message(*args, **kwargs):
 
     posts = pull_posts_from_database(db=db, user_id=request.cookies.get('user_id'))
+    print(posts)
     print("request made!")
     if 'local' not in request.args:
         
@@ -35,7 +36,7 @@ def pull_message(*args, **kwargs):
         return render_template('read_letter.html', posts=posts)
     else:
         selected_post = posts[0]
-        if posts[0].id == request.cookies.get('selectedId'):
+        if str(posts[0].id) == str(request.args['selectedId']):
             selected_post = posts[1]
         return jsonify(selected_post.get_JSON())
     #     post_index = int(request.args['index'])
@@ -67,7 +68,7 @@ def home():
         user_id = new_user.id
         print(f'userid={user_id}')
         # print(url_for('views.set_cookie', user_id=user_id))
-        return redirect(url_for('cookies.setcookie',user_id=user_id,post=post))
+        return redirect(url_for('cookies.setcookie',user_id=user_id))
 
     else:
         user_id = request.cookies.get('user_id')
@@ -80,6 +81,29 @@ def home():
         print(f'cookie: {user_id}')
 
     return render_template('index.html')
+
+
+@views.route('/viewletter', methods=['GET','POST'])
+def view_letter_page():
+
+    id = request.args['letter_id']
+    letters_chain = get_letters_chain(db=db, reply_id=id)
+    users_involved = []
+    for l in letters_chain:
+        if l.user_id not in users_involved:
+            users_involved.append(str(l.user_id))
+    if str(request.cookies.get('user_id')) in users_involved:
+        subject = letters_chain[0].subject
+        id_chain = [p.id for p in letters_chain]
+        curr_index = id_chain.index(int(id))
+        curr_post = get_post_by_id(db=db, id=id_chain[curr_index])
+        return render_template('view-letters.html', 
+                                letters_chain=id_chain, 
+                                subject=subject, 
+                                curr_index=curr_index, 
+                                curr_post=curr_post)
+    else:
+        return make_response("you do not have permission to access", 401)
 
 
 @views.route('/responses', methods=['GET','POST'])
@@ -97,21 +121,22 @@ def new_letter_page():
     if request.method == 'POST': # submit button being pressed
         message = request.form.get('content')
         subject = request.form.get('title')
-        if len(message) < 1:
-            flash("message is too short", category="error")
-        elif len(subject)<1:
-            flash("please enter a subject", category="error")
-        else:
-            new_post = Post(content=message,subject=subject,user_id=request.cookies['user_id'])
-            db.session.add(new_post)
-            db.session.commit()
-            
-            initial_post_entry = Initial_Post(author_id=request.cookies['user_id'],post_id=new_post.id)
-            db.session.add(initial_post_entry)
-            db.session.commit()
+        if len(message)>1 and len(subject)>1:
+            create_new_post(db=db, content=message,subject=subject,user_id=request.cookies['user_id'])
+
             print("data added")
             # flash('Your message has been sent!', category='success')
-        return redirect(url_for('views.home'))
+            return redirect(url_for('views.home'))
+        else:
+            flash('Please enter a message and a subject!', category='error')
+            return redirect(url_for('views.new_letter_page'))
+
+
+@views.route('/getpost', methods=['POST'])
+def get_post():
+    id = request.form.get('id')
+    post = get_post_by_id(db=db, id=id)
+    return jsonify(post.get_JSON())
 
 
 @views.route('/list')
@@ -121,7 +146,7 @@ def letter_list_page():
     response_sent = []
     all_replies = {}
     for post in all_posts:
-        if post.is_reply and len(reply_chain_subsequent(db, post.id))==1:
+        if post.is_reply and len(reply_chain_subsequent(db, post.id))==1: # 1 = only the current post
             response_sent.append((post, get_letters_chain(db, post.id)[0]))
         else:
             letters_sent.append(post)
@@ -142,7 +167,8 @@ def post_response():
         push_response(db=db, 
         user_id=request.cookies.get('user_id'), 
         original_post_id=request.form.get('selectedPostId'), 
-        reply_content=request.form.get('responseContent'))
+        reply_content=request.form.get('responseContent'),
+        is_initial=True)
     return redirect(url_for('views.home'))
 
 
