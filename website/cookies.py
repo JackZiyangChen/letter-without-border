@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template, request, flash, make_response, redirect
-from flask_login import login_required, current_user
-from .flaskDB import Post, User
-from . import db
+
 
 
 cookies = Blueprint('cookies',__name__)
