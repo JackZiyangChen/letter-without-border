@@ -51,9 +51,21 @@ html{
     }
 }
 
-#frontpage-heading, #frontpage-item-1, #frontpage-item-2, #frontpage-item-3{
+#frontpage-heading, #frontpage-item-1, #frontpage-item-2, #frontpage-item-3, #frontpage-item-4{
     opacity: 0;
     transition: opacity 3s ease-in-out;
+}
+
+#successMessage, #errorMessage{
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.5em;
+}
+
+#homeButton{
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
 }
 
 
