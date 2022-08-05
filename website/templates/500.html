@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+    {% block page_name %}Home{% endblock %}
+    {% block content %}
+    <center>
+      <main style="margin: auto 0em" class="body container">
+        <div class="content">
+          <p style="margin: 5em"id="errorMessage">Oops! An internal error has occured... sorry...</p>
+          <div class="button-pan">
+            <a id="homeButton" style="margin:auto;" href="/">Take me back to home!</a>
+          </div>
+        </div>
+      </main>
+    </center>
+    <script src="{{url_for('static',filename='load-animations.js')}}"></script>
+    <script>
+
+      localStorage.clear();
+        elementTransitionIn("errorMessage");
+        window.setTimeout(function(){
+          elementTransitionIn("homeButton");
+        }, 2200);
+
+      
+      
+      </script>
+    
+    {% endblock %}

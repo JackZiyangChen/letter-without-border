@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+    {% block page_name %}subject goes here{%endblock%}
+    
+    {% block content %}
+    <main class="body container">
+        <form action="/respond" method="post" id="form">
+            <div class="content">
+                <div class="textbox letter-display" id="view-letter-box">
+                    <div class="subject-line" id="view-letter-subject">
+                        <h5 id="subject">{{subject}}</h5>
+                    </div>
+                    <div class="letter-content" id="view-letter-content">
+                        <p id="content">{{curr_post.content}}</p>
+                    </div>
+                </div>
+                <div class="view-pan" id="view-pan-control">
+                    <button id="btnPreviousLetter" type="button">previous</button>
+                    <p id="pageCount">{{curr_index+1}}/{{letters_chain|length}}</p>
+                    <button id="btnNextLetter" type="button">next</button>
+                </div>
+                <hr>
+                <div style="margin-top:0em;padding-top:0em;"  class="button-pan">
+                    <a href="/list">back to list of letters</a>
+                    <button id="respondLetter" type="button" onclick="respondToLetter();">I would like to respond</button>
+                </div>
+            </div>
+        </form>
+    </main>
+    <script src={{ url_for('static', filename='load-animations.js') }}></script>
+    <script>
+        localStorage.setItem('currIndex', '' + {{curr_index}});
+        localStorage.setItem('lettersChain', JSON.stringify({{ letters_chain }}));
+        localStorage.setItem('chainSize', {{letters_chain|length}});
+        // console.log({{letters_chain|length}})
+
+        if(localStorage.getItem('currIndex') == '0'){
+            document.getElementById('btnPreviousLetter').style.visibility = 'hidden';
+        }
+        if(''+{{curr_index}}==localStorage.getItem('chainSize')-'1'){
+            document.getElementById('btnNextLetter').style.visibility = 'hidden';
+        }
+
+        function respondToLetter() {
+            var contentWrap = document.getElementsByClassName("content")[0];
+            const content = contentWrap.innerHTML;
+
+            const responseBox = "<div class=\"textbox\" id=\"response-box\">" 
+                + "<br><textarea " 
+                + "name=\"responseContent\" id=\"responseContent\" cols=\"30\" rows=\"10\" class=\"text-input\" placeholder=\"Enter response here\">"
+                + "</textarea></div>"
+
+            contentWrap.innerHTML = "<div class=\"horizontal-box\">" + content + responseBox +"</div>";
+            var buttonPan = document.getElementsByClassName("button-pan")[0]
+            contentWrap.appendChild(buttonPan);
+            document.getElementById("view-pan-control").remove()
+            document.getElementsByTagName("hr")[0].remove();
+
+            
+
+
+            var letterExist = document.createElement("input");
+            letterExist.setAttribute("type", "hidden");
+            letterExist.setAttribute("id", "letterExist");
+            letterExist.setAttribute("name", "letterExist");
+            letterExist.setAttribute("value", true);
+
+            var selectedPostHidden = document.createElement("input");
+                selectedPostHidden.setAttribute("type", "hidden");
+                selectedPostHidden.setAttribute("id", "selectedPostId");
+                selectedPostHidden.setAttribute("name", "selectedPostId");
+
+                selectedPostHidden.setAttribute("value", JSON.parse(localStorage.getItem('lettersChain'))[parseInt(localStorage.getItem('currIndex'))]);
+
+                //'id': JSON.parse(localStorage.getItem('lettersChain'))[index+1]
+
+            document.getElementsByTagName("form")[0].appendChild(selectedPostHidden);
+            document.getElementsByTagName("form")[0].appendChild(letterExist);
+
+            const sendMessage = document.createElement("button");
+            sendMessage.setAttribute("id", "sendMessage");
+            sendMessage.setAttribute("type", "submit");
+            sendMessage.innerHTML = "Send my Response!!";
+            
+            buttonPan.appendChild(sendMessage);
+            buttonPan.removeChild(document.getElementById("respondLetter"));
+
+
+        };
+
+
+        function loadNextLetter(){
+            index = parseInt(localStorage.getItem('currIndex'));
+            elementTransitionOut("view-letter-content");
+            window.setTimeout(function(){
+                $.ajax({
+                    url: '/getpost',
+                    type: 'POST',
+                    data: {
+                        'id': JSON.parse(localStorage.getItem('lettersChain'))[index+1]
+                    },
+                    success: function(data){
+                        $('#content').text(data.content);
+                        index += 1
+                        document.getElementById("pageCount").innerHTML = (index+1) + "/" + localStorage.getItem('chainSize');
+                        localStorage.setItem('currIndex', ''+index);
+                        if(index+1==localStorage.getItem('chainSize')){
+                            document.getElementById('btnNextLetter').style.visibility = 'hidden';
+
+
+                            cookiesArray = document.cookie.split(';')
+                            for(var i = 0; i < cookiesArray.length; i++){
+                                if(cookiesArray[i].includes('user_id')){
+                                    user_id = parseInt(cookiesArray[i].split('=')[1]);
+                                }
+                            }
+                            if(data.user_id != user_id){
+                                document.getElementById('respondLetter').style.visibility = 'visible';
+                                document.getElementById('respondLetter').disabled = false;
+                            }else{
+                                document.getElementById('respondLetter').style.visibility = 'hidden';
+                                document.getElementById('respondLetter').disabled = true;
+                            }
+                        }
+                        document.getElementById('btnPreviousLetter').style.visibility = 'visible';
+                        
+                    }
+                });
+            }, 1000);
+            window.setTimeout(function(){
+                elementTransitionIn("view-letter-content");
+            },1200);
+            
+        }
+
+        function loadPreviousLetter(){
+            index = parseInt(localStorage.getItem('currIndex'));
+            elementTransitionOut("view-letter-content");
+            window.setTimeout(function(){
+                $.ajax({
+                    url: '/getpost',
+                    type: 'POST',
+                    data: {
+                        'id': JSON.parse(localStorage.getItem('lettersChain'))[index-1]
+                    },
+                    success: function(data){
+                        $('#content').text(data.content);
+                        index -= 1
+                        document.getElementById("pageCount").innerHTML = (index+1) + "/" + localStorage.getItem('chainSize');
+                        localStorage.setItem('currIndex', ''+index);
+                        if(index==0){
+                            document.getElementById('btnPreviousLetter').style.visibility = 'hidden';
+                        }
+                        document.getElementById('btnNextLetter').style.visibility = 'visible';
+
+                        document.getElementById('respondLetter').style.visibility = 'hidden';
+                        document.getElementById('respondLetter').disabled = true;
+                        
+                    }
+                });
+            },1000);
+            window.setTimeout(function(){
+                elementTransitionIn("view-letter-content");
+            },1200);
+            
+            
+        }
+
+
+        document.getElementById('btnNextLetter').onclick = function(){
+            loadNextLetter();
+        };
+        document.getElementById('btnPreviousLetter').onclick = function(){
+            loadPreviousLetter();
+        };
+    </script>
+    <script>
+        window.setTimeout(function() {
+            elementTransitionIn("view-letter-box");
+        }, 100);
+        window.setTimeout(function() {
+            elementTransitionIn("view-letter-subject");
+            elementTransitionIn("view-letter-content");
+        }, 1200);
+        window.setTimeout(function() {
+            elementTransitionIn("view-pan-control");
+        }, 1800);
+    </script>
+    {% endblock %}

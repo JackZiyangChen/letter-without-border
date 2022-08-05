@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+    {%block page_name%}New Letter{% endblock %}
+    {% block content %}
+    <center>
+        <main class="body container">
+            <form id="letter" method="post">
+                <div class="content">
+                    <h2 class="sub-title">Write Away...</h2>
+                    
+                    <div class="textbox">
+                        <input class="text-input" type="title" name="title" id="title" placeholder="Enter a subject line">
+                        <br>
+                        <textarea class="text-input" name="content" id="content" cols="30" rows="10" placeholder="What's on your mind?"></textarea>
+                    </div>
+                    
+                    <div class="caveats">
+                        <h4>A few caveats before you send</h4>
+                        <div class="rules">
+                            <ol>
+                                <li><p>This is not a replacement for therapy or emergency service. 
+                                    If you are in dire need of help please call 911 or 800-273-8255 
+                                    (national suicide hotline)</p></li>
+                                <li><p>We cannot guarentee who will be reading your message so please 
+                                    do not include any private or sensative information.</p></li>
+                                <li><p>Keep in mind that your message will be read by another human.
+                                     Be kind and use common sense (e.g. do not be racist).</p></li>
+                                <li><p>We reserve the right to remove your messages and potentially 
+                                    contact law enforcement if you break the above rules.</p></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-pan">
+                    <a href="/">back to menu</a>
+                    <button type="submit" id="submitLetter"><a>Send my message to the world...</a></button>
+                </div>
+            </form>
+        </main>
+    </center>
+    {% endblock content %}

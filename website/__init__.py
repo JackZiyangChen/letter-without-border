@@ -8,32 +8,37 @@ from flask_login import LoginManager
 
 from flask_caching import Cache
 from flask_migrate import Migrate
+from dotenv import load_dotenv
 
 
 db = SQLAlchemy()  # SQL Alchemy instance
 cache = Cache()
-DB_NAME = 'database.db'
+ENV_PATH = os.path.join(os.getcwd(), '.env')
+load_dotenv(dotenv_path=ENV_PATH)
+# DB_NAME = 'database.db'
 
 
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'hello world'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # triple slash is a relative path
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('PRODUCTION_DB_URL')  # triple slash is a relative path
     
     db.init_app(app)
     cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
     from .flaskDB import User, Post
-    create_database(app)
+    # create_database(app)
 
 
 
     from .views import views
     from .cookies import cookies
+    from .error import init_error
 
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(cookies, url_prefix="/")
+    init_error(app)
 
     # migrate = Migrate()
     # migrate.init_app(app, db, render_as_batch=True)

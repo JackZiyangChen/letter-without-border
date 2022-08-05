@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+    {% block page_name %}New Letters{%endblock%}
+    {% block addtional_stylesheets_scripts %}
+        
+    {% endblock %}
+    {% block content %}
+        <main class="body container">
+            <form action="/respond" method="post" id="form">
+                <div class="content">
+                    <div class="textbox letter-display" id="new-letter-box">
+                        <div class="subject-line">
+                            <h4 id="subject">{{posts[0].subject}}</h4>
+                        </div>
+                        <div class="letter-content">
+                            <p id="content">{{posts[0].content}}</p>
+                        </div>
+                    </div>
+                    <div class="button-pan">
+                        <a href="/">back to menu</a>
+                        <button id="respondLetter" type="button" onclick="respondToLetter();">I would like to respond</button>
+                        <button id="nextLetter" type="button" onclick="nextLetter();">Get another letter</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <script src="{{ url_for('static', filename='load-animations.js') }}"></script>
+        <script>
+            elementTransitionIn("new-letter-box");
+            localStorage.setItem("selectedId", {{posts[0].id}});
+
+            function respondToLetter() {
+                var contentWrap = document.getElementsByClassName("content")[0];
+                const content = contentWrap.innerHTML;
+
+                const responseBox = "<div class=\"textbox\" id=\"response-box\">" 
+                    + "<br><textarea " 
+                    + "name=\"responseContent\" id=\"responseContent\" cols=\"30\" rows=\"10\" class=\"text-input\" placeholder=\"Enter response here\">"
+                    + "</textarea></div>"
+
+                contentWrap.innerHTML = "<div class=\"horizontal-box\">" + content + responseBox +"</div>";
+                var buttonPan = document.getElementsByClassName("button-pan")[0]
+                contentWrap.appendChild(buttonPan);
+
+                const sendMessage = document.createElement("button");
+                sendMessage.setAttribute("id", "sendMessage");
+                sendMessage.setAttribute("type", "submit");
+                sendMessage.innerHTML = "Send my message to the world..."
+                
+                buttonPan.appendChild(sendMessage);
+                buttonPan.removeChild(document.getElementById("respondLetter"));
+                buttonPan.removeChild(document.getElementById("nextLetter"));
+
+
+                var selectedPostHidden = document.createElement("input");
+                selectedPostHidden.setAttribute("type", "hidden");
+                selectedPostHidden.setAttribute("id", "selectedPostId");
+                selectedPostHidden.setAttribute("name", "selectedPostId");
+                selectedPostHidden.setAttribute("value", localStorage.getItem("selectedId"));
+
+                document.getElementsByTagName("form")[0].appendChild(selectedPostHidden);
+
+
+                //document.cookie += ";selectedId=" + posts[i].id;
+            };
+
+            function nextLetter() {
+                // const params = window.location.href.slice(window.location.href.indexOf("?") + 1).split("&");
+                // var index = parseInt(params[0].split("=")[1]);
+                // if(isNaN(index)) {
+                //     index = 0;
+                // }
+                // index++;
+                // console.log(index);
+                var elem = document.getElementById("new-letter-box");
+                elem.style.opacity = 0;
+
+                elementTransitionOut("new-letter-box");
+                // hideElement();
+                
+                window.setTimeout(function() {
+                    $.ajax({
+                        url: "/read",
+                        data: {
+                            local: true,
+                            selectedId: localStorage.getItem("selectedId")
+                        },
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            
+                            $("#subject").html(data.subject);
+                            $("#content").html(data.content);
+                            localStorage.setItem("selectedId", data.id);
+                            // console.log(data);
+                            
+                        }
+                    });
+                    elementTransitionIn("new-letter-box");
+                }, 700);
+                
+            };
+
+            document.getElementById("nextLetter").onclick = function() {
+                nextLetter();
+            };
+            document.getElementById("respondLetter").onclick = function() {
+                respondToLetter();
+            };
+
+
+
+        </script>
+        
+
+    {% endblock %}

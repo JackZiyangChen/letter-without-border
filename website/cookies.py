@@ -8,7 +8,7 @@ cookies = Blueprint('cookies',__name__)
 
 @cookies.route('/setcookie', methods=['POST', 'GET'])
 def setcookie(): # setter
-    print("redirect successful")
+    # print("redirect successful")
     resp = make_response(render_template('index.html'))
     resp.set_cookie('user_id', request.args['user_id'])
 

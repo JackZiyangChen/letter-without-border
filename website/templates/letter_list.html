@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+    {% block page_name %}View Letters{% endblock %}
+    
+    {% block content %}
+        <main class="body container">
+            <div class="content">
+                <div class="lists-display">
+                    <h3 class="sub-title">My Letters</h3>
+                    <div class="letter-list-container">
+                        {% if posts_sent|length == 0 %}
+                        <p>You have no letter sent!</p>
+                        {% else %}
+                        <ul>
+                            {% for post in posts_sent %}
+                                <li>
+                                    <div class="wrap" href="#">
+                                        <div class="letter-entry-display">
+                                            <div class="letter-header-display">
+                                                <div class="letter-title">
+                                                    <p>{{post.subject}}</p>
+                                                </div>
+                                                <div class="letter-date-time">
+                                                    <p>{{post.date_posted.strftime("%Y-%m-%d %I:%M:%S %p")}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="letter-response-list letter-response-hidden">
+                                                <!-- <hr> -->
+                                                {% if post.id in replies_list %}
+                                                    <ul>
+                                                        {% for reply in replies_list[post.id] %}
+                                                            <li>
+                                                            <a href="{{url_for('views.view_letter_page')}}?letter_id={{reply.id}}">reply from {{reply.date_posted.strftime("%Y-%m-%d %p")}}</a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <br>
+                    <hr>
+                    <br>
+                    <h3 class="sub-title" >My Replies</h3>
+                    <div class="letter-list-container">
+                        {% if responses_sent|length == 0  %}
+                            <p>You have yet to respond to a letter!</p>
+                        {% else %}
+                        <ul>
+                            {% for res in responses_sent %}
+                                <li>
+                                    <div class="wrap" href="#">
+                                        <div class="letter-entry-display">
+                                            <div class="letter-header-display">
+                                                <div class="letter-title">
+                                                    <p>RE: {{res[1].subject}}</p>
+                                                </div>
+                                                <div class="letter-date-time">
+                                                    <p>{{res[0].date_posted.strftime("%Y-%m-%d %I:%M:%S %p")}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="letter-response-list letter-response-hidden">
+                                                <a href="{{url_for('views.view_letter_page')}}?letter_id={{res[0].id}}">view response</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="button-pan">
+                <a href="/">Back to Menu</a>
+            </div>
+        </main>
+        <script>
+            // cookies = document.cookie;
+            // document.cookie = cookies.replace("user_id=70", "user_id=68");
+
+            var allClickable = document.getElementsByClassName("wrap");
+            for(let i =0; i<allClickable.length; i++){
+                allClickable[i].addEventListener("click", function(){
+                    var expandingElem = allClickable[i].getElementsByClassName("letter-response-list")[0];
+                    
+                    // expandingElem.classList.replace("letter-response-hidden", "letter-response-active");
+                    allClickable[i].classList.add("active");
+                    allClickable[i].getElementsByClassName("letter-entry-display")[0].classList.add("active");
+
+                    for(let j =0; j<allClickable.length; j++){
+                        if(allClickable[j] != allClickable[i]){
+                            allClickable[j].getElementsByClassName("letter-response-list")[0].classList.replace("letter-response-active", "letter-response-hidden");
+                            allClickable[j].classList.remove("active");
+                            allClickable[j].getElementsByClassName("letter-entry-display")[0].classList.remove("active");
+                            var content = allClickable[j].getElementsByClassName("letter-response-list")[0];
+                            if (content.style.maxHeight){
+                                content.style.maxHeight = null;
+                            }
+                        }
+                    }
+                    
+                    var content = expandingElem;
+                    if (content.style.maxHeight){
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } 
+
+                });
+            }
+        </script>
+    {% endblock %}
