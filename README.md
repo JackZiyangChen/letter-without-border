@@ -1,7 +1,7 @@
 # Letters without Borders
 
 ### A Quick Note
-This project is intended to be a finished and improved version of my project at the 2022 Annual HackNYU Hackathon. The idea of this project and the original version of the project that I repurposed from belong to the original authors, which I have listed in the "Authors" section. The original version of the code will be stored in the "_________" branch. 
+This project is intended to be a finished and improved version of my project at the 2022 Annual HackNYU Hackathon. The idea of this project and the original version of the project that I repurposed from belong to the original authors, which I have listed in the "Authors" section. The original version of the code will be stored in the "stab/0.0.2-violet-functional" branch. 
 
 ## Authors
 * Jack Chen (Backend, Python)
