@@ -15,6 +15,7 @@ cache = Cache()
 ENV_PATH = os.path.join(os.getcwd(), '.env')
 load_dotenv(dotenv_path=ENV_PATH)
 # DB_NAME = 'database.db'
+app = ""
 
 
 def create_app():
