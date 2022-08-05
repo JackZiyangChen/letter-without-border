@@ -15,10 +15,10 @@ cache = Cache()
 ENV_PATH = os.path.join(os.getcwd(), '.env')
 load_dotenv(dotenv_path=ENV_PATH)
 # DB_NAME = 'database.db'
-app = Flask(__name__)
 
 
 def create_app():
+    app = Flask(__name__)
 
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('PRODUCTION_DB_URL')  # triple slash is a relative path
@@ -47,7 +47,7 @@ def create_app():
 
     return app
 
-
+app = create_app()
 
 def create_database(app):
     if not path.exists('website'+os.sep+DB_NAME):
