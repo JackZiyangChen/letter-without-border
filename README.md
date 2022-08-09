@@ -34,6 +34,7 @@ Before you begin, ensure you have met the following requirements:
 * You have Python 3 installed
 * You have imported the flask libraries and SQLAlchemy 
 * You have enabled javascript
+* If you are using terminal to run the app, please have "flask-dotenv" installed
 
 (Note: comments on specific imports located in the __init__.py file - 
 installation can be done through pip in the terminal/command prompt)
