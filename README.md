@@ -10,7 +10,7 @@ This project is intended to be a finished and improved version of my project at 
 * Brian Zou
 
 ## Project Description
-Letters without borders, named after the famous nonprofit "Doctors without Borders," is an online anonymous messaging application. This application works similar to the "message in a bottle" app on WeChat. In Letters Without Borders, users can post letters anonymously and read/respond to other people's letters.
+Letters without Borders, named after the famous nonprofit "Doctors without Borders," is an online anonymous messaging application. This application works similar to the "message in a bottle" app on WeChat. In Letters Without Borders, users can post letters anonymously and read/respond to other people's letters.
 
 The hope for this project is to promote positivity through anonymity. Oftentimes in our lives, a lot of us have no outlets to share our inner thoughts and feelings. Letters Without Borders provide an easy and quick way to jog down random thoughts to share with others across the internet. Our ultimate hope is to improve the mental health of users who use our site, even just for a litte.
 
